@@ -20,18 +20,34 @@ class LLMFactory:
                 openai_api_key=settings.openai_api_key
             )
         elif "claude" in model_name:
-            if not settings.anthropic_api_key:
-                # Fallback to GPT-4o-mini if Anthropic key is missing
+            # Check for a real Anthropic key (not empty or placeholder)
+            real_key = (
+                settings.anthropic_api_key
+                and settings.anthropic_api_key.startswith("sk-ant-")
+                and "your" not in settings.anthropic_api_key
+            )
+            if not real_key:
+                # Fallback to GPT-4o-mini if Anthropic key is missing/placeholder
                 return ChatOpenAI(
                     model="gpt-4o-mini",
                     temperature=temperature,
                     openai_api_key=settings.openai_api_key
                 )
-            return ChatAnthropic(
-                model=model_name,
-                temperature=temperature,
-                anthropic_api_key=settings.anthropic_api_key
-            )
+            try:
+                return ChatAnthropic(
+                    model=model_name,
+                    temperature=temperature,
+                    anthropic_api_key=settings.anthropic_api_key
+                )
+            except Exception as e:
+                # Python 3.14 / httpx incompatibility fallback
+                import logging
+                logging.warning(f"ChatAnthropic init failed ({e}), falling back to gpt-4o-mini")
+                return ChatOpenAI(
+                    model="gpt-4o-mini",
+                    temperature=temperature,
+                    openai_api_key=settings.openai_api_key
+                )
         else:
             # Default fallback
             return ChatOpenAI(

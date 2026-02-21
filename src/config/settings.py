@@ -32,18 +32,19 @@ class Settings(BaseSettings):
     redis_cache_ttl: int = Field(default=86400, env="REDIS_CACHE_TTL")
     
     # Database
-    database_url: str = Field(..., env="DATABASE_URL")
+    database_url: str = Field(default="sqlite:///./decision_intelligence.db", env="DATABASE_URL")
     database_pool_size: int = Field(default=10, env="DATABASE_POOL_SIZE")
     database_max_overflow: int = Field(default=20, env="DATABASE_MAX_OVERFLOW")
     
     # Observability
     langsmith_api_key: str = Field(default="", env="LANGSMITH_API_KEY")
     langsmith_project: str = Field(default="decision-intelligence", env="LANGSMITH_PROJECT")
+    langsmith_endpoint: str = Field(default="https://api.smith.langchain.com", env="LANGSMITH_ENDPOINT")
     log_level: str = Field(default="INFO", env="LOG_LEVEL")
     log_format: str = Field(default="json", env="LOG_FORMAT")
     
     # Security
-    jwt_secret_key: str = Field(..., env="JWT_SECRET_KEY")
+    jwt_secret_key: str = Field(default="demo-secret-key-change-in-production", env="JWT_SECRET_KEY")
     jwt_algorithm: str = Field(default="HS256", env="JWT_ALGORITHM")
     jwt_expiration_hours: int = Field(default=24, env="JWT_EXPIRATION_HOURS")
     
