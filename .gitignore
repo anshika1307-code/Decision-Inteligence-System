@@ -11,6 +11,7 @@ downloads/
 eggs/
 .eggs/
 lib/
+!frontend/src/lib/
 lib64/
 parts/
 sdist/
@@ -37,7 +38,8 @@ env/
 .env
 .env.local
 .env.*.local
-
+.env.production
+backend/.env.production
 # Logs
 logs/
 *.log
