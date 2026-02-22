@@ -32,7 +32,14 @@ class RerankerService:
     """Service for reranking retrieved documents"""
     
     def __init__(self):
-        self.use_cohere = bool(settings.cohere_api_key)
+        # Only use Cohere if key is real (not empty or placeholder)
+        cohere_key = settings.cohere_api_key or ""
+        real_cohere_key = (
+            bool(cohere_key)
+            and "your" not in cohere_key
+            and len(cohere_key) > 20
+        )
+        self.use_cohere = real_cohere_key
         self.cohere_client = None
         self._cross_encoder = None  # Lazy loaded
         

@@ -86,6 +86,7 @@ class Settings(BaseSettings):
     class Config:
         env_file = ".env"
         case_sensitive = False
+        extra = "ignore"  # Ignore unknown env vars (e.g. LANGCHAIN_TRACING_V2)
 
 
 # Global settings instance
