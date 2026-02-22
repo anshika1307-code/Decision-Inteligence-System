@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222 47% 5%;
+    --foreground: 213 31% 91%;
+    --card: 222 40% 8%;
+    --card-foreground: 213 31% 91%;
+    --popover: 222 40% 8%;
+    --popover-foreground: 213 31% 91%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 222 47% 5%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 213 31% 91%;
+    --muted: 223 47% 11%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 262 80% 65%;
+    --accent-foreground: 213 31% 91%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 213 31% 91%;
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+    --ring: 217 91% 60%;
+    --radius: 0.75rem;
+    --chart-1: 217 91% 60%;
+    --chart-2: 262 80% 65%;
+    --chart-3: 142 76% 55%;
+    --chart-4: 38 92% 55%;
+    --chart-5: 0 84% 60%;
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  body {
+    @apply bg-background text-foreground font-sans;
+    background-image:
+      radial-gradient(ellipse at 20% 50%, hsl(217 91% 60% / 0.05) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, hsl(262 80% 65% / 0.05) 0%, transparent 50%);
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: hsl(222 40% 8% / 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid hsl(216 34% 17%);
+  }
+  .glow-blue {
+    box-shadow: 0 0 20px hsl(217 91% 60% / 0.3);
+  }
+  .glow-purple {
+    box-shadow: 0 0 20px hsl(262 80% 65% / 0.3);
+  }
+  .gradient-text {
+    @apply bg-gradient-to-r from-blue-400 via-violet-400 to-blue-400 bg-clip-text text-transparent;
+  }
+  .gradient-border {
+    position: relative;
+  }
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, hsl(217 91% 60%), hsl(262 80% 65%));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
