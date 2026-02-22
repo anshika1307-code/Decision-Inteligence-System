@@ -53,17 +53,20 @@ class RerankerService:
                 self.use_cohere = False
         
         if not self.use_cohere:
-            if _check_cross_encoder():
-                try:
-                    from sentence_transformers import CrossEncoder
-                    model_name = "cross-encoder/ms-marco-MiniLM-L-6-v2"
-                    logger.info(f"Loading local CrossEncoder model: {model_name}")
-                    self._cross_encoder = CrossEncoder(model_name)
-                    logger.info("Initialized local CrossEncoder")
-                except Exception as e:
-                    logger.warning(f"Failed to load CrossEncoder model: {e}. Using passthrough reranking.")
+            if settings.enable_local_reranking:
+                if _check_cross_encoder():
+                    try:
+                        from sentence_transformers import CrossEncoder
+                        model_name = "cross-encoder/ms-marco-MiniLM-L-6-v2"
+                        logger.info(f"Loading local CrossEncoder model: {model_name}")
+                        self._cross_encoder = CrossEncoder(model_name)
+                        logger.info("Initialized local CrossEncoder")
+                    except Exception as e:
+                        logger.warning(f"Failed to load CrossEncoder model: {e}. Using passthrough reranking.")
+                else:
+                    logger.info("Using passthrough reranking (no torch/CrossEncoder available)")
             else:
-                logger.info("Using passthrough reranking (no torch/CrossEncoder available)")
+                logger.info("Local reranking disabled via settings (to save memory)")
 
     async def rerank(
         self, 

@@ -59,6 +59,7 @@ class Settings(BaseSettings):
     vector_top_k: int = Field(default=20, env="VECTOR_TOP_K")
     bm25_top_k: int = Field(default=20, env="BM25_TOP_K")
     rerank_top_n: int = Field(default=10, env="RERANK_TOP_N")
+    enable_local_reranking: bool = Field(default=False, env="ENABLE_LOCAL_RERANKING")
     chunk_size: int = Field(default=1000, env="CHUNK_SIZE")
     chunk_overlap: int = Field(default=200, env="CHUNK_OVERLAP")
     
