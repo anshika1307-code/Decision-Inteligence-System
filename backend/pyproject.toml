@@ -36,7 +36,7 @@ python-multipart = "^0.0.17"
 httpx = "^0.28.0"
 numpy = "^2.1.0"
 sentence-transformers = "^3.3.0"
-tiktoken = "^0.8.0"
+# tiktoken = "^0.8.0"  # Removed - requires Rust compiler on Windows
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.0"
