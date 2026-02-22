@@ -1,7 +1,7 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle2, AlertTriangle, TrendingUp, FileSearch, Brain, AlignLeft, BarChart3 } from "lucide-react";
+import { CheckCircle2, AlertTriangle, TrendingUp, AlignLeft, BarChart3 } from "lucide-react";
 import type { AnalyzeResponse } from "@/lib/api";
 
 export function ResultCard({ result }: { result: AnalyzeResponse }) {
